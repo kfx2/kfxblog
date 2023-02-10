@@ -68,7 +68,7 @@ def user(username):
     return render_template('user.html', user=user, posts=posts,
                            pagination=pagination)
 
-@main.route('/user/id/<id: int>')
+@main.route('/user/id/<int:id>')
 def userid(id):
     user = User.query.filter_by(id=id).first_or_404()
     page = request.args.get('page', 1, type=int)
