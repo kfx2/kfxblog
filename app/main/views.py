@@ -66,7 +66,9 @@ def user(username):
         error_out=False)
     posts = pagination.items
     return render_template('user.html', user=user, posts=posts,
-                           pagination=pagination)
+                           pagination=pagination, 
+                           k=not current_user.can(Permission.ADMINISTER) \
+                            and user.can(Permission.ADMINISTER))
 
 @main.route('/user/id/<int:id>')
 def userid(id):
@@ -77,7 +79,9 @@ def userid(id):
         error_out=False)
     posts = pagination.items
     return render_template('user.html', user=user, posts=posts,
-                           pagination=pagination)
+                           pagination=pagination, 
+                           k=not current_user.can(Premission.ADMINISTER) \
+                            and new_user.can(Premission.ADMINISTER))
 
 @main.route('/edit-profile', methods=['GET', 'POST'])
 @login_required

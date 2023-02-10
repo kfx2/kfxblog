@@ -8,14 +8,13 @@ from flask import current_app, request, url_for
 from flask_login import UserMixin, AnonymousUserMixin
 from app.exceptions import ValidationError
 from . import db, login_manager
-#ifdef __cplusplus
 
 class Permission:
     FOLLOW = 0x01
     COMMENT = 0x02
     WRITE_ARTICLES = 0x04
     MODERATE_COMMENTS = 0x08
-    CHANGE_USER = 0x0f
+    CHANGE_USER = 0x10
     ADMINISTER = 0x80
 
 

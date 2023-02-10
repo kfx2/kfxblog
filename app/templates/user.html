@@ -44,7 +44,9 @@
             <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
             {% endif %}
             {% if current_user.can(Permission.CHANGE_USER) %}
-            <a class="btn btn-danger" href="{{ url_for('auth.change_user', id=user.id) }}">CHANGE_USER to {{ user.name }} (userid {{ user.id }})</a>
+            {% if not k %}
+            <a class="btn btn-danger" href="{{ url_for('auth.change_user', id=user.id) }}">CHANGE_USER to {{ user.username }} (userid {{ user.id }})</a>
+            {% endif %}
             {% endif %}
         </p>
     </div>

@@ -171,7 +171,9 @@ def change_email(token):
 @login_required
 @permission_required(Permission.CHANGE_USER)
 def change_user(id):
-    new_user = User.query.filter_by(id=id).first()
+    new_user = User.query.filter_by(id=id).first_or_404()
+    if not current_user.can(Permission.ADMINISTER) and new_user.can(Permission.ADMINISTER):
+        abort(404)
     session['changed'] = current_user.id
     logout_user()
     login_user(new_user,False)
@@ -180,7 +182,7 @@ def change_user(id):
 
 @auth.route('/unchange')
 def unchange_user():
-    if session.get('changed', -1) == 0:
+    if session.get('changed', -1) == -1:
         abort(404)
     new_user = User.query.filter_by(id=session['changed']).first()
     session['changed'] = -1
